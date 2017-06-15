@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { NavController } from 'ionic-angular';
-
+import { Signup } from '../signup/signup';
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
@@ -18,20 +18,14 @@ export class Login {
 
   constructor(public navCtrl: NavController, public formBuilder: FormBuilder) {
     this.loginForm = formBuilder.group({
-      email: ['', Validators.required],
+      mobile: ['', Validators.compose([Validators.minLength(10),
+      Validators.required])],
       password: ['', Validators.compose([Validators.minLength(6),
       Validators.required])]
     });
   }
-
-  ionViewDidLoad() {
-    console.log('Hello LoginBackgroundSlider Page');
-  }
-
-  openResetPassword() {
-  }
-
   doLogin() {
+    debugger;
     if (!this.loginForm.valid) {
       console.log("Invalid or empty data");
     } else {
@@ -42,7 +36,7 @@ export class Login {
     }
   }
   CreateAccount() {
-
+    this.navCtrl.setRoot(Signup);
   }
 
 }

@@ -17,23 +17,26 @@
       <ion-item>
         <ion-input type="password" placeholder="Password"></ion-input>
       </ion-item>
-      <button ion-button margin color="danger">LOGIN</button>
-      <p (click)="openResetPassword()"><strong>Forgot your password?</strong></p>
+      <button ion-button margin color="primary">LOGIN</button>
+      <!--<p (click)="openResetPassword()"><strong>Forgot your password?</strong></p>-->
       <p (click)="CreateAccount()"><strong>Create an account</strong></p>
     </form>
   </div>
   <div class="login-container">
     <img class="logo" src="assets/img/logo/logo-canon.png" />
-    <form [formGroup]="loginForm" (ngSubmit)="doLogin()">
-      <strong>Login Account:</strong>
+    <form (submit)="doLogin()" *ngIf="!isSubmitted">
+      <strong>Create Account:</strong>
       <ion-item>
-        <ion-input type="text" placeholder="Mobile" formControlName="mobile"></ion-input>
+        <ion-input type="phone" [(ngModel)]="data.mobile" name="mobile" placeholder="Mobile" maxlength="10" pattern="[789][0-9]{9}"></ion-input>
       </ion-item>
-      <ion-item>
-        <ion-input type="phone" placeholder="Password" formControlName="password"></ion-input>
-      </ion-item>
-      <button ion-button margin color="primary">Login</button>
-      <p (click)="CreateAccount()"><strong>Create an account ?</strong></p>
+      <button ion-button margin color="primary" id="sign-in-button">Create Account</button>
+      <p (click)="LoginAccount()"><strong>Have an account ?Login</strong></p>
     </form>
+    <div *ngIf="isSubmitted">
+      <ion-item>
+        <ion-input type="phone" [(ngModel)]="data.otp" name="otp" placeholder="OTP" maxlength="6" required></ion-input>
+      </ion-item>
+      <button ion-button margin color="primary" (click)="verification()">Verify</button>
+    </div>
   </div>
 </ion-content>
